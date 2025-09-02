@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digitkard - Matchmaking</title>
+  <style>
+    body, html {
+      margin: 0; padding: 0;
+      font-family: Arial, sans-serif;
+      height: 100%;
+      background: url("https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80") no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+      scroll-behavior: smooth;
+      transition: background-image 1s ease-in-out;
+    }
+
+    /* Navbar */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 50px;
+      background: rgba(0,0,0,0.6);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    .navbar h1 { font-size: 22px; letter-spacing: 2px; margin: 0; }
+    .navbar ul { list-style: none; display: flex; justify-content: center; flex: 1; margin: 0; padding: 0; }
+    .navbar ul li { margin: 0 20px; }
+    .navbar ul li a { text-decoration: none; color: white; font-weight: bold; transition: 0.3s; }
+    .navbar ul li a:hover { color: #e50914; }
+
+    /* USP Boxes Carousel */
+    #usp-carousel {
+      margin-top: 70px; 
+      overflow: hidden;
+      padding: 20px 0;
+      background: rgba(0,0,0,0.5);
+    }
+    .carousel {
+      display: flex;
+      gap: 20px;
+      animation: scroll 25s linear infinite;
+      padding: 0 20px;
+    }
+    .carousel:hover { animation-play-state: paused; }
+    .usp-box {
+      flex: 0 0 auto;
+      padding: 20px 30px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(66,165,245,0.85), rgba(33,150,243,0.85));
+      color: #ffffff;
+      font-weight: bold;
+      white-space: nowrap;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      text-align: center;
+      min-width: 300px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .usp-box:hover {
+      transform: scale(1.05);
+      background: linear-gradient(135deg, #ff6f61, #ff3d00);
+      color: #ffff00;
+      font-weight: bolder;
+    }
+    @keyframes scroll { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+
+    /* Hero Section */
+    .hero {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: rgba(0,0,0,0.4);
+      padding: 120px 20px 80px;
+    }
+    .hero h2 { font-size: 50px; margin-bottom: 20px; }
+    .hero p { font-size: 20px; max-width: 700px; }
+
+    /* Partnership Section */
+    #partnership {
+      padding: 100px 20px;
+      background: rgba(0,0,0,0.6);
+      text-align: center;
+    }
+    .partner-btn {
+      display: inline-block;
+      margin: 20px;
+      padding: 15px 30px;
+      background: #e50914;
+      color: white;
+      font-size: 18px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    .partner-btn:hover {
+      background: #ff3d00;
+      transform: scale(1.05);
+    }
+
+    footer {
+      background: rgba(0,0,0,0.7);
+      padding: 20px;
+      text-align: center;
+      color: #ccc;
+    }
+    footer a { color: #e50914; text-decoration: none; font-weight: bold; }
+
+    /* Form Modal */
+    .form-modal {
+      display: none;
+      position: fixed;
+      top:0; left:0; right:0; bottom:0;
+      background: rgba(0,0,0,0.95);
+      z-index: 2000;
+      padding: 40px 20px;
+      text-align: center;
+      overflow-y: auto;
+    }
+    .form-modal h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .form-modal iframe {
+      width: 100%;
+      max-width: 800px;
+      height: 600px;
+      border: none;
+      border-radius: 10px;
+      background: white;
+    }
+    .close-btn {
+      background: #e50914;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      margin-top: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 5px;
+    }
+
+    @media(max-width:768px) {
+      .hero h2 { font-size: 32px; }
+      .navbar { flex-direction: column; }
+      .navbar ul { flex-direction: column; }
+      .navbar ul li { margin: 10px 0; }
+      .usp-box { min-width: 250px; padding: 15px 20px; font-size: 14px; }
+    }
+    @media(max-width:480px) {
+      .carousel { animation: none; overflow-x: auto; }
+      .usp-box { flex: 0 0 auto; margin-right: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <h1>Digitkard</h1>
+    <ul>
+      <li><a href="#usp-carousel">USP</a></li>
+      <li><a href="#home">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="#" onclick="openForm('profile-form')">Make Profile</a></li>
+      <li><a href="#partnership">Partnership</a></li>
+    </ul>
+  </div>
+
+  <!-- USP Boxes Carousel -->
+  <div id="usp-carousel">
+    <div class="carousel">
+      <div class="usp-box">Ground-level verification by trusted cybercafe partners and village leaders</div>
+      <div class="usp-box">Complete personal privacy – photos & names never shared publicly</div>
+      <div class="usp-box">Fast matchmaking – multiple suggestions in a single day</div>
+      <div class="usp-box">Village to block level coverage – from ward, panchayat to block</div>
+      <div class="usp-box">Advanced WhatsApp-based personal matching</div>
+      <div class="usp-box">Aiming to be India’s biggest platform by 2028</div>
+    </div>
+  </div>
+
+  <!-- Hero Section -->
+  <div class="hero" id="home">
+    <h2>Connecting Villages Through Matchmaking</h2>
+    <p>We help you find the perfect match at the village & panchayat level. Trusted, simple, and community-driven.</p>
+  </div>
+
+  <!-- Partnership Section -->
+  <div id="partnership">
+    <h2>Become a Partner</h2>
+    <p>We are inviting Cybercafes and Village Leaders to join hands in building Bihar’s largest rural matchmaking network.</p>
+    <a href="#" class="partner-btn" onclick="openForm('cyber-form')">Cybercafe Partner</a>
+    <a href="#" class="partner-btn" onclick="openForm('leader-form')">Village Leader Partner</a>
+  </div>
+
+  <!-- Profile Form Modal -->
+  <div id="profile-form" class="form-modal">
+    <h2>Welcome to Digitkard - Make Your Profile</h2>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdhIq8lhdeu842xAqMQ3jgSRCmshMv-L8cCWYNSiN4GpvXAdA/viewform?embedded=true">Loading…</iframe>
+    <br>
+    <button class="close-btn" onclick="closeForm('profile-form')">Close</button>
+  </div>
+
+  <!-- Cybercafe Partner Form Modal -->
+  <div id="cyber-form" class="form-modal">
+    <h2>Cybercafe Partnership Form</h2>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSee_D-yCI90f_mJ9CnyleW8H1uMlmagVINKjZpav-iMkc8dZg/viewform?embedded=true">Loading…</iframe>
+    <br>
+    <button class="close-btn" onclick="closeForm('cyber-form')">Close</button>
+  </div>
+
+  <!-- Village Leader Partner Form Modal -->
+  <div id="leader-form" class="form-modal">
+    <h2>Village Leader Partnership Form</h2>
+    <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdfVoofrdWrxhff12jW5BX1qYBw9bRyuPHCJla8wlzLmwJt3A/viewform?embedded=true">Loading…</iframe>
+    <br>
+    <button class="close-btn" onclick="closeForm('leader-form')">Close</button>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Digitkard. All rights reserved. | Designed with ❤️ in Bihar</p>
+  </footer>
+
+  <script>
+    function openForm(id) { document.getElementById(id).style.display = "block"; }
+    function closeForm(id) { document.getElementById(id).style.display = "none"; }
+
+    // Dynamic background images
+    const backgrounds = [
+      "https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80",
+      "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1600&q=80"
+    ];
+    let bgIndex = 0;
+    setInterval(() => {
+      bgIndex = (bgIndex + 1) % backgrounds.length;
+      document.body.style.backgroundImage = `url("${backgrounds[bgIndex]}")`;
+    }, 5000);
+  </script>
+
+</body>
+</html>
